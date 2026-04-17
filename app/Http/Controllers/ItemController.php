@@ -52,5 +52,16 @@ class ItemController extends Controller
         }
         return redirect('/');
     }
+
+    public function destroy($id)
+    {
+        $user = $this->user();
+        if ($user) {
+            $item = $user->items()->findOrFail($id);
+            $item->delete();
+            return redirect('/')->with('success','Item was deleted');
+        }
+        return redirect('/')->with('error','Please login');
+    }
 }
 

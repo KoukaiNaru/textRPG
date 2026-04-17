@@ -3,14 +3,19 @@
 <head><title>Items</title></head>
 <body><h1>Inventory</h1>
 <ul>
-    <h2>
-        @foreach($items as $item)
+    @foreach($items as $item)
+        <h2>
             <li><a href="/inventory/{{$item->id}}">
                     {{$item->title}} <br> {{$item->description}}
                 </a>
+                <form action="/inventory/{{$item->id}}/delete" method="post">
+                    @csrf
+                    <button type="submit">Delete</button>
+                </form>
             </li>
-        @endforeach
-    </h2>
+            <hr>
+        </h2>
+    @endforeach
 </ul>
 </body>
 </html>

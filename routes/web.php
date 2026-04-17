@@ -11,6 +11,7 @@ Route::get('/', function () {
 Route::post('/user', [UserController::class, 'username']);
 Route::post('/logout', [UserController::class, 'logout']);
 Route::get('/inventory/list', [ItemController::class, 'item']);
+Route::post('/inventory/{id}/delete',[ItemController::class, 'destroy']);
 Route::get('inventory/create', [ItemController::class, 'create']);
 Route::post('/inventory', [ItemController::class, 'store']);
 Route::get('/inventory/{id}', [ItemController::class, 'show']);
