@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @method static Builder|Item query()
@@ -13,4 +14,9 @@ use Illuminate\Database\Eloquent\Model;
 class Item extends Model
 {
     protected $fillable = ['title', 'description', 'power'];
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 }

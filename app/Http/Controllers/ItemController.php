@@ -3,20 +3,35 @@
 namespace App\Http\Controllers;
 
 use App\Models\Item;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ItemController extends Controller
 {
+    public function user()
+    {
+      $user = session('user_id');
+      return User::find($user);
+    }
+
     public function item()
     {
-        $items = Item::all();
-        return view('items.info', ['items' => $items]);
+        $user = $this->user();
+        if ($user) {
+            $items = $user->items()->get();
+            return view('items.info', compact('items'));
+        }
+        return redirect('/')->with('error','Please login');
     }
 
     public function show($id)
     {
-        $item = Item::findOrFail($id);
-        return view('items.show', ['item' => $item]);
+        $user = $this->user();
+        if ($user) {
+            $item = $user->items()->findOrFail($id);
+            return view('items.show', compact('item'));
+        }
+        return redirect('/')->with('error', 'Please, login');
     }
 
     public function create()
@@ -26,16 +41,16 @@ class ItemController extends Controller
 
     public function store(Request $request)
     {
-        $validWeapon = $request->validate([
-            'title' => 'required|string|max:255|unique:items',
-            'description' => 'nullable|string',
-            'power' => 'required|integer|min:1|max:100',
+        $user = $this->user();
+        if ($user) {
+            $validWeapon = $request->validate([
+                'title' => 'required|string|max:255|unique:items',
+                'description' => 'nullable|string',
+                'power' => 'required|integer|min:1|max:100',
             ]);
-
-        Item::create($validWeapon);
-
+            $user->items()->create($validWeapon);
+        }
         return redirect('/');
     }
-
 }
 

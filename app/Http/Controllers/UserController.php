@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use function Symfony\Component\String\s;
 
 class UserController extends Controller
 {
