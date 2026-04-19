@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inventory</title>
+  <link rel="stylesheet" href="resources/css/app.css">
+</head>
+<body>
+
+<!--центрация по середине-->
+<div class="rpg-pages">
+  <!--шапка страницы с заголовком-->
+  <header class="rpg-header">
+    <!--символ это может быть иконка к примеру, над заголовком-->
+    <span class="rpg-crest">***</span>
+    <!--главный заголовок страницы-->
+    <h1 class="rpg-title">инвентарь</h1>
+    <!--маленький текст под заголовком-->
+    <p class="rpg-subtitle">собранные предметы</p>
+  </header>
+  <!--ссылка назад, ведёт на главную страницу-->
+  <a href="home-user.html" class="rpg-back">вернуться</a>
+
+  <!--основная панель с контентом-->
+  <div class="rpg-panel" style="max-width:640px;">
+
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+      <!--заголовок внутри панели-->
+      <p class="rpg-panel-title" style="margin-bottom:0;">оружие и предметы</p>
+      <!--кнопка-ссылка для создания нового предмета-->
+      <a href="create.html" class="rpg-btn" style="padding:9px 18px; font-size:11px;">+ создать</a>
+    </div>
+
+    <div class="rpg-divider"><div class="rpg-divider-gem"></div></div>
+
+    <!--список предметов-->
+    <div class="rpg-inventory">
+

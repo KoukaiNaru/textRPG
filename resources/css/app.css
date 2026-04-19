@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=IM+Fell+English:ital@0;1&display=swap');
 @import 'tailwindcss';
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
@@ -9,3 +10,30 @@
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
+
+/*цвета главные, самом вверху гугл фонтс*/
+:root {
+    --gold: #c9a84c;
+    --gold-bright: #f0ce77;
+    --gold-dark: #8b6f2c;
+    --red: #c94c4c;
+    --red-bright: #f07777;
+    --bg-deep:     #0d0b06;
+    --bg-panel:    #100e08;
+    --bg-card:     #181208;
+    --border:      #3a2a10;
+    --text-main:   #d4b896;
+    --text-dim:    #7a6040;
+    --text-bright: #f0e0b0;
+}
+/*основные стили*/
+body {
+  background-color: var(--bg-deep);
+  color: var(--text-main);
+  font-family: 'IM Fell English', serif;
+  font-size: 16px;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+

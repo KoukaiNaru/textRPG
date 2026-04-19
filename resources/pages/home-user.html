@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home-User</title>
+  <link rel="stylesheet" href="resources/css/app.css">
+</head>
+<body>
+    <div class="rpg-header">
+        <header class="rpg-header">
+        <span class="rpg-crest">иконку сюда</span>
+        <h1 class="rpg-title">Grave of Kings</h1>
+        <p class="rpg-subtitle">простой текст</p>
+    </header>
+    
+    <!--сообщние-->
+    <div class="rpg-flash rpg-flash-success">Вы вошли в систему!</div>
+
+    <!--показать когда пользователь вошел-->
+    <div class="rpg-panel">
+        <div class="rpg-welcome">
+            <p class="rpg-welcome-name">имя</p>
+            <p class="rpg-welcome-tagline">Ваш голос разносится по всему королевству</p>
+        </div>
+
+        <div class="rpg-divider"><div class="rpg-divider-gem"></div></div>
+
+    <nav class="rpg-nav">
+      <a href="inventory.html" class="rpg-nav-item">
+        <span class="rpg-nav-icon">***</span> <!--иконка инвентаряя-->
+        <div>
+          <div class="rpg-nav-label">инвентарь</div>
+          <div class="rpg-nav-desc">посмотрите свое оружие и предметы</div>
+        </div>
+        <span class="rpg-nav-arrow">-></span>
+      </a>
+
+      <a href="create.html" class="rpg-nav-item">
+        <span class="rpg-nav-icon">★</span>
+        <div>
+          <div class="rpg-nav-label">создать оружие</div>
+          <div class="rpg-nav-desc">создайте оружие у кузнеца</div>
+        </div>
+        <span class="rpg-nav-arrow">-></span>
+      </a>
+    </nav>
+    <div class="rpg-divider"><div class="rpg-divider-gem">
+</div>
+</div>
+
+    <form action="/logout" method="post">
+      <button type="submit" class="rpg-btn rpg-btn-ghost rpg-btn-full">
+        &nbsp;Покинуть 
+      </button>
+    </form>
+  </div>
+
+</div>
+
+<script src="resources/css/app.css"></script>
+</body>
+</html>
