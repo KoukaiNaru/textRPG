@@ -10,13 +10,25 @@
     <div class="rpg-page">
         <header class="rpg-header">
             <span class="rpg-crest">иконку сюда</span>
-            <h1 class="rpg-title">Добро пожаловать в RPG игру!</h1>
+            <h1 class="rpg-title">Grave of Kings</h1>
             <p class="rpg-subtitle">простой текст</p>
+        </header>
+
+        <!--страничка показывает когда юзер не вошел (страничка входа)-->
+        <div class="rpg-panel">
+            <p class="rpg-panel-title">Войдите в систему</p>
+<p style="text-align:center; font-style:italic; color:var(--text-dim); margin-bottom:20px; font-size:14px;">
+    </p>
+
+    <form method="post" action="/user" class="rpg-form"
+    <div class="rpg-input-group">
+        <label class="rpg-label" for="name">Имя пользователя</label>
+        <input class="rpg-input" type="text" id="name" name="name" placeholder="Введите имя пользователя" autocomplete="off">
     </div>
-
-
-
-
-
-
+    <button type="submit" class="rpg-bth rpg-bth-full">Войти</button>
+</form>        
+    </div>
+      </div>
+      <script src="resources/js/app.js"></script>
+</body>
     </html>
