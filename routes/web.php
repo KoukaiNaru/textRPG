@@ -8,6 +8,7 @@ Route::get('/', function () {
     $user = User::latest()->first();
     return view('user.home', compact('user'));
 });
+Route::post('/add-coins',[UserController::class, 'coins']);
 Route::post('/user', [UserController::class, 'username']);
 Route::post('/logout', [UserController::class, 'logout']);
 Route::get('/inventory/list', [ItemController::class, 'item']);

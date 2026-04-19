@@ -10,14 +10,8 @@ class UserController extends Controller
     public function username(Request $request)
     {
         $request->validate(['name' => 'required|string|min:1|max:255']);
-        $user = User::where('name', $request->name)->first();
-        if ($user) {
-            session(['user_id' => $user->id]);
-            return redirect('/')->with('success', 'Welcome back!');
-        } else {
-            $user = User::create(['name' => $request->name]);
-            session(['user_id' => $user->id]);
-        }
+        $user = User::firstOrCreate(['name' => $request->name]);
+        session(['user_id' => $user->id]);
         return redirect('/');
     }
 
@@ -27,5 +21,11 @@ class UserController extends Controller
         session()->regenerate();
 
         return redirect('/');
+    }
+    public function coins()
+    {
+        $user = User::find(session('user_id'));
+        $user->increment('coins',10);
+        return back();
     }
 }
