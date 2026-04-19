@@ -10,8 +10,8 @@ class ItemController extends Controller
 {
     public function user()
     {
-      $user = session('user_id');
-      return User::find($user);
+        $user = session('user_id');
+        return User::find($user);
     }
 
     public function item()
@@ -21,7 +21,7 @@ class ItemController extends Controller
             $items = $user->items()->get();
             return view('items.info', compact('items'));
         }
-        return redirect('/')->with('error','Please login');
+        return redirect('/')->with('error', 'Please login');
     }
 
     public function show($id)
@@ -39,18 +39,20 @@ class ItemController extends Controller
         return view('items.create');
     }
 
-    public function store(Request $request)
+    public function craftItems()
     {
         $user = $this->user();
         if ($user) {
-            $validWeapon = $request->validate([
-                'title' => 'required|string|max:255|unique:items',
-                'description' => 'nullable|string',
-                'power' => 'required|integer|min:1|max:100',
-            ]);
-            $user->items()->create($validWeapon);
+            $woodCount = $user->items()->where('catalog_id',1)->count();
+
+            if ($woodCount < 3) {
+                return redirect('/inventory/list')->with('error','Need 3 wood');
+            }
+
+            $user->items()->where('catalog_id',1)->limit(3)->delete();
+            $user->items()->create(['catalog_id'=>4]);
         }
-        return redirect('/');
+        return redirect('/')->with('success','Your item was created!');
     }
 
     public function destroy($id)
@@ -59,9 +61,9 @@ class ItemController extends Controller
         if ($user) {
             $item = $user->items()->findOrFail($id);
             $item->delete();
-            return redirect('/')->with('success','Item was deleted');
+            return back()->with('success','Item was deleted');
         }
-        return redirect('/')->with('error','Please login');
+        return redirect('/')->with('error', 'Please login');
     }
 }
 

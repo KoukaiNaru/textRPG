@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->integer('coins')->default(100);
+            $table->integer('level')->default(1);
             $table->timestamps();
         });
 
