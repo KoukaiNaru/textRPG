@@ -1,8 +1,8 @@
-import './bootstrap';
+// import './bootstrap';
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  //(золотые искры фоном) 
+  //(золотые искры фоном)
   function spawnParticles() {
     const container = document.createElement('div');
     container.id = 'rpg-particles';
@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   spawnParticles();
 
-  //анимация заполнения 
+  //анимация заполнения
   const bar = document.querySelector('.rpg-power-bar-fill');
   if (bar) {
     const target = bar.dataset.power || '0';
@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 300);
   }
 
-  //ПОДТВЕРЖДЕНИЕ УДАЛЕНИЯ 
+  //ПОДТВЕРЖДЕНИЕ УДАЛЕНИЯ
   document.querySelectorAll('form[data-confirm]').forEach(form => {
     form.addEventListener('submit', e => {
       const msg = form.dataset.confirm || 'Are you sure?';

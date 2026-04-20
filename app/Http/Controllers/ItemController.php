@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Catalog;
 use App\Models\Item;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use League\CommonMark\Extension\Table\Table;
 
 class ItemController extends Controller
 {
@@ -39,21 +42,17 @@ class ItemController extends Controller
         return view('items.create');
     }
 
-    public function craftItems()
-    {
-        $user = $this->user();
-        if ($user) {
-            $woodCount = $user->items()->where('catalog_id',1)->count();
+    /** Не трогать, пожалуйста, нерабочий код */
 
-            if ($woodCount < 3) {
-                return redirect('/inventory/list')->with('error','Need 3 wood');
-            }
-
-            $user->items()->where('catalog_id',1)->limit(3)->delete();
-            $user->items()->create(['catalog_id'=>4]);
-        }
-        return redirect('/')->with('success','Your item was created!');
-    }
+//    public function craft($id)
+//    {
+//        $user = $this->user();
+//        if ($user) {
+//            $recipe = DB::table('recipes')->where('item_id',5)->get();
+//            dd($recipe);
+//        }
+//        return redirect('/')->with('success','Your item was created!');
+//    }
 
     public function destroy($id)
     {
