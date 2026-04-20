@@ -7,6 +7,14 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+    // изменённые методы (home, username, logout, coins) - ИИШКА их отредактировала, остальное - без изменений
+    /**  переработать
+    public function home()
+    {
+        $user = session('user_id') ? User::find(session('user_id')) : null;
+        return view('user.home', compact('user')); // было: view('home', ...)
+    }
+*/
     public function username(Request $request)
     {
         $request->validate(['name' => 'required|string|min:1|max:255']);
