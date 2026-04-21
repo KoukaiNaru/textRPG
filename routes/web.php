@@ -24,7 +24,7 @@ Route::prefix('inventory')->name('inventory.')->group(function () {
 
     // Страница создания предмета
     Route::get('/create', [ItemController::class, 'create'])->name('create');
-    Route::post('/', [ItemController::class, 'store'])->name('store');
+    Route::post('/', [ItemController::class, 'craft'])->name('store');
     // Просмотр и удаление конкретного предмета
     Route::get('/{id}', [ItemController::class, 'show'])->name('show');
     Route::delete('/{id}', [ItemController::class, 'destroy'])->name('destroy');

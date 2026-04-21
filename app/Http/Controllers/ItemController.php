@@ -42,17 +42,29 @@ class ItemController extends Controller
         return view('items.create');
     }
 
-    /** Не трогать, пожалуйста, нерабочий код */
+    public function craft($id)
+    {
+        $user = $this->user();
+        if (!$user) return redirect('/')->with('error', 'Login first');
 
-//    public function craft($id)
-//    {
-//        $user = $this->user();
-//        if ($user) {
-//            $recipe = DB::table('recipes')->where('item_id',5)->get();
-//            dd($recipe);
-//        }
-//        return redirect('/')->with('success','Your item was created!');
-//    }
+        $recipe = DB::table('recipes')->where('item_id', $id)->get();
+
+        foreach ($recipe as $recipeItem) {
+            $resCount = $user->items()->where('catalog_id', $recipeItem->ingredient_id)->count();
+
+            if ($resCount < $recipeItem->quantity) {
+                return redirect('/')->with('error', 'No resources');
+            }
+        }
+
+        foreach ($recipe as $recipeItem){
+            $user->items()->where('catalog_id',$recipeItem->ingredient_id)->limit($recipeItem->quantity)->delete();
+        }
+
+        $user->items()->create(['catalog_id' => $id]);
+        $user->increment('level',1);
+        return redirect('/')->with('success', 'Your item was created!');
+    }
 
     public function destroy($id)
     {
@@ -60,7 +72,7 @@ class ItemController extends Controller
         if ($user) {
             $item = $user->items()->findOrFail($id);
             $item->delete();
-            return back()->with('success','Item was deleted');
+            return back()->with('success', 'Item was deleted');
         }
         return redirect('/')->with('error', 'Please login');
     }
