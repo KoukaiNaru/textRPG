@@ -13,9 +13,8 @@ return new class extends Migration
     {
         Schema::create('items', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->text('description');
-            $table->integer('power');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('catalog_id')->constrained('catalog');
             $table->timestamps();
         });
     }

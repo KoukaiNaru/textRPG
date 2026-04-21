@@ -13,10 +13,15 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class Item extends Model
 {
-    protected $fillable = ['title', 'description', 'power'];
+    protected $fillable = ['title', 'description', 'power', 'catalog_id'];
 
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function catalog(): BelongsTo
+    {
+        return $this->belongsTo(Catalog::class, 'catalog_id');
     }
 }

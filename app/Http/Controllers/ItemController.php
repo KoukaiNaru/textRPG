@@ -2,16 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Catalog;
 use App\Models\Item;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use League\CommonMark\Extension\Table\Table;
 
 class ItemController extends Controller
 {
     public function user()
     {
-      $user = session('user_id');
-      return User::find($user);
+        $user = session('user_id');
+        return User::find($user);
     }
 
     public function item()
@@ -21,7 +24,7 @@ class ItemController extends Controller
             $items = $user->items()->get();
             return view('items.info', compact('items'));
         }
-        return redirect('/')->with('error','Please login');
+        return redirect('/')->with('error', 'Please login');
     }
 
     public function show($id)
@@ -39,19 +42,17 @@ class ItemController extends Controller
         return view('items.create');
     }
 
-    public function store(Request $request)
-    {
-        $user = $this->user();
-        if ($user) {
-            $validWeapon = $request->validate([
-                'title' => 'required|string|max:255|unique:items',
-                'description' => 'nullable|string',
-                'power' => 'required|integer|min:1|max:100',
-            ]);
-            $user->items()->create($validWeapon);
-        }
-        return redirect('/');
-    }
+    /** Не трогать, пожалуйста, нерабочий код */
+
+//    public function craft($id)
+//    {
+//        $user = $this->user();
+//        if ($user) {
+//            $recipe = DB::table('recipes')->where('item_id',5)->get();
+//            dd($recipe);
+//        }
+//        return redirect('/')->with('success','Your item was created!');
+//    }
 
     public function destroy($id)
     {
@@ -59,9 +60,9 @@ class ItemController extends Controller
         if ($user) {
             $item = $user->items()->findOrFail($id);
             $item->delete();
-            return redirect('/')->with('success','Item was deleted');
+            return back()->with('success','Item was deleted');
         }
-        return redirect('/')->with('error','Please login');
+        return redirect('/')->with('error', 'Please login');
     }
 }
 
