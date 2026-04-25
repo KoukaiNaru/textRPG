@@ -42,6 +42,23 @@ class ItemController extends Controller
         return view('items.create');
     }
 
+    private function hasIngredients($user, $recipe)
+    {
+        foreach ($recipe as $recipeItem) {
+            $resCount = $user->items()->where('catalog_id', $recipeItem->ingredient_id)->count();
+            if ($resCount < $recipeItem->quantity) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private function spendIngredients($user,$recipe)
+    {
+        foreach ($recipe as $recipeItem) {
+            $user->items()->where('catalog_id', $recipeItem->ingredient_id)->limit($recipeItem->quantity)->delete();
+        }
+    }
     public function craft($id)
     {
         $user = $this->user();
@@ -49,20 +66,12 @@ class ItemController extends Controller
 
         $recipe = DB::table('recipes')->where('item_id', $id)->get();
 
-        foreach ($recipe as $recipeItem) {
-            $resCount = $user->items()->where('catalog_id', $recipeItem->ingredient_id)->count();
-
-            if ($resCount < $recipeItem->quantity) {
-                return redirect('/')->with('error', 'No resources');
-            }
+        if (!$this->hasIngredients($user,$recipe)) {
+            return back()->with('error','No resources');
         }
-
-        foreach ($recipe as $recipeItem){
-            $user->items()->where('catalog_id',$recipeItem->ingredient_id)->limit($recipeItem->quantity)->delete();
-        }
-
+        $this->spendIngredients($user,$recipe);
         $user->items()->create(['catalog_id' => $id]);
-        $user->increment('level',1);
+        $user->increment('level', 1);
         return redirect('/')->with('success', 'Your item was created!');
     }
 

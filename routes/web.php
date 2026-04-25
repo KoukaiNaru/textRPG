@@ -4,23 +4,21 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ItemController;
 
-// use App\Http\Controllers\ItemController;
-// use App\Http\Controllers\UserController;
-// use App\Models\User;
-// use Illuminate\Support\Facades\Route;
-
 // Главная страница (контроллер пользователя)
 Route::get('/', [UserController::class, 'home'])->name('home');
 
 // Маршруты пользователя
 Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 Route::post('/username', [UserController::class, 'username'])->name('username');
-Route::post('/coins', [UserController::class, 'coins'])->name('coins');
+Route::get('/coins', [UserController::class, 'coins'])->name('coins');
 
 // Маршруты инвентаря/предметов (группировка для удобства)
 Route::prefix('inventory')->name('inventory.')->group(function () {
     // Список предметов
     Route::get('/list', [ItemController::class, 'item'])->name('list');
+
+    // тест крафта
+    Route::get('/create/{id}',[ItemController::class, 'craft'])->name('craft');
 
     // Страница создания предмета
     Route::get('/create', [ItemController::class, 'create'])->name('create');

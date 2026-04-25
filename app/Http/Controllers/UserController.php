@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\ItemController;
 
 class UserController extends Controller
 {
@@ -36,7 +37,7 @@ class UserController extends Controller
     }
     public function coins()
     {
-        $user = User::find(session('user_id'));
+        $user = $this->findUser();
         $randomId = rand(1,10);
         $user->increment('coins',$randomId);
         return back();
