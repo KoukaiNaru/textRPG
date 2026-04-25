@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ $item->title }}</title>
+  <title>{{ $item->catalog->name }}</title>
   @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body>
@@ -11,7 +11,7 @@
 <div class="rpg-page">
 
   <header class="rpg-header">
-    <h1 class="rpg-title">{{ $item->title }}</h1>
+    <h1 class="rpg-title">{{ $item->catalog->name }}</h1>
     <p class="rpg-subtitle">Информация о предмете</p>
   </header>
 
@@ -23,12 +23,12 @@
 
     <div style="text-align:center; margin-bottom:20px;">
       <p style="font-size:13px; color:var(--text-dim); margin-bottom:6px;">Урон</p>
-      <p style="font-size:42px; font-family:'Cinzel',serif; color:var(--gold); line-height:1;">{{ $item->power }}</p>
+      <p style="font-size:42px; font-family:'Cinzel',serif; color:var(--gold); line-height:1;">{{ $item->catalog->power }}</p>
     </div>
 
-    @if($item->description)
+    @if($item->catalog->type)
       <p style="text-align:center; color:var(--text-main); font-style:italic; margin-bottom:20px;">
-        {{ $item->description }}
+        {{ $item->catalog->type }}
       </p>
     @endif
 

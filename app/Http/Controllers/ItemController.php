@@ -31,7 +31,8 @@ class ItemController extends Controller
     {
         $user = $this->user();
         if ($user) {
-            $item = $user->items()->findOrFail($id);
+
+            $item = $user->items()->with('catalog')->findOrFail($id);
             return view('items.show', compact('item'));
         }
         return redirect('/')->with('error', 'Please, login');
@@ -81,7 +82,7 @@ class ItemController extends Controller
         if ($user) {
             $item = $user->items()->findOrFail($id);
             $item->delete();
-            return back()->with('success', 'Item was deleted');
+            return redirect('/inventory/list')->with('success', 'Item was deleted');
         }
         return redirect('/')->with('error', 'Please login');
     }

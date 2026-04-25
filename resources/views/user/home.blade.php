@@ -35,12 +35,13 @@
                 <p class="rpg-welcome-tagline">Ваш голос эхом разносится по всему королевству...</p>
             </div>
 
-            {{-- Тесты для проверки работоспособни методов
+            {{-- Тесты для проверки работоспособни методов --}}
 
-{{--            <a href="/inventory/create/5">Скрафтить Меч (Тест)</a>--}}
-{{--            <br>--}}
-{{--            <a href="/inventory/create/4">Скрафтить Дубину (Тест)</a>--}}
-{{--            <a href="/coins">Получение денег (Тест)</a>--}}
+            <a href="/inventory/create/5">Скрафтить Меч (Тест)</a>
+            <br>
+            <a href="/inventory/create/4">Скрафтить Дубину (Тест)</a>
+            <br>
+            <a href="/coins">Получение денег (Тест)</a>
 
             <div class="rpg-divider">
                 <div class="rpg-divider-gem"></div>

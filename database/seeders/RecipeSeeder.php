@@ -14,7 +14,7 @@ class RecipeSeeder extends Seeder
     {
         DB::table('recipes')->insert([
             ['item_id' => 5, 'ingredient_id' => 1, 'quantity' => 1],
-            ['item_id' => 5, 'ingredient_id' => 3, 'quantity' => 3],
+            ['item_id' => 5, 'ingredient_id' => 2, 'quantity' => 3],
             ['item_id' => 4, 'ingredient_id' => 1, 'quantity' => 3]
         ]);
     }
