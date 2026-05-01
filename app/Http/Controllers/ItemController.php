@@ -31,7 +31,8 @@ class ItemController extends Controller
     {
         $user = $this->user();
         if ($user) {
-            $item = $user->items()->findOrFail($id);
+
+            $item = $user->items()->with('catalog')->findOrFail($id);
             return view('items.show', compact('item'));
         }
         return redirect('/')->with('error', 'Please, login');
@@ -42,17 +43,38 @@ class ItemController extends Controller
         return view('items.create');
     }
 
-    /** Не трогать, пожалуйста, нерабочий код */
+    private function hasIngredients($user, $recipe)
+    {
+        foreach ($recipe as $recipeItem) {
+            $resCount = $user->items()->where('catalog_id', $recipeItem->ingredient_id)->count();
+            if ($resCount < $recipeItem->quantity) {
+                return false;
+            }
+        }
+        return true;
+    }
 
-//    public function craft($id)
-//    {
-//        $user = $this->user();
-//        if ($user) {
-//            $recipe = DB::table('recipes')->where('item_id',5)->get();
-//            dd($recipe);
-//        }
-//        return redirect('/')->with('success','Your item was created!');
-//    }
+    private function spendIngredients($user,$recipe)
+    {
+        foreach ($recipe as $recipeItem) {
+            $user->items()->where('catalog_id', $recipeItem->ingredient_id)->limit($recipeItem->quantity)->delete();
+        }
+    }
+    public function craft($id)
+    {
+        $user = $this->user();
+        if (!$user) return redirect('/')->with('error', 'Login first');
+
+        $recipe = DB::table('recipes')->where('item_id', $id)->get();
+
+        if (!$this->hasIngredients($user,$recipe)) {
+            return back()->with('error','No resources');
+        }
+        $this->spendIngredients($user,$recipe);
+        $user->items()->create(['catalog_id' => $id]);
+        $user->increment('level', 1);
+        return redirect('/')->with('success', 'Your item was created!');
+    }
 
     public function destroy($id)
     {
@@ -60,7 +82,7 @@ class ItemController extends Controller
         if ($user) {
             $item = $user->items()->findOrFail($id);
             $item->delete();
-            return back()->with('success','Item was deleted');
+            return redirect('/inventory/list')->with('success', 'Item was deleted');
         }
         return redirect('/')->with('error', 'Please login');
     }

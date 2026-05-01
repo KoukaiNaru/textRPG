@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Catalog;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -11,7 +13,8 @@ class UserController extends Controller
     public function home()
     {
         $user = session('user_id') ? User::find(session('user_id')) : null;
-        return view('user.home', compact('user'));
+        $products = Catalog::all();
+        return view('user.home', compact('user','products'));
     }
 
     public function username(Request $request)
@@ -19,6 +22,9 @@ class UserController extends Controller
         $request->validate(['name' => 'required|string|min:1|max:255']);
         $user = User::firstOrCreate(['name' => $request->name]);
         session(['user_id' => $user->id]);
+
+        Auth::login($user);
+
         return redirect('/');
     }
 
@@ -36,7 +42,7 @@ class UserController extends Controller
     }
     public function coins()
     {
-        $user = User::find(session('user_id'));
+        $user = $this->findUser();
         $randomId = rand(1,10);
         $user->increment('coins',$randomId);
         return back();

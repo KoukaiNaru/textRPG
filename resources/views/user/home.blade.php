@@ -31,8 +31,35 @@
         <div class="rpg-panel">
             <div class="rpg-welcome">
                 <p class="rpg-welcome-name">⚔ {{ $user->name }}</p>
+                <p class="rpg-welcome-name">{{ $user->level }} Level ◇ {{$user->coins}} Gold</p>
                 <p class="rpg-welcome-tagline">Ваш голос эхом разносится по всему королевству...</p>
             </div>
+
+            {{-- Тесты для проверки работоспособни методов --}}
+
+            <a href="/inventory/create/5">Скрафтить Меч (Тест)</a>
+            <br>
+            <a href="/inventory/create/4">Скрафтить Дубину (Тест)</a>
+            <br>
+            <a href="/coins">Получение денег (Тест)</a>
+
+            <div class="rpg-divider">
+                <div class="rpg-divider-gem"></div>
+            </div>
+
+            <div class="rpg-nav-label">Магазин</div>
+        @foreach($products as $product)
+                <div style="border: 1px solid #ccc; margin-bottom: 10px; padding: 10px;">
+                    <strong>{{ $product->name }}</strong> — Цена: {{ $product->price }} золота
+
+                    <form action="{{ route('shop.buy', $product->id) }}" method="POST">
+                        @csrf
+                        <button type="submit" class="rpg-btn rpg-btn-ghost rpg-btn">Купить</button>
+                    </form>
+                </div>
+
+            @endforeach
+
 
             <div class="rpg-divider">
                 <div class="rpg-divider-gem"></div>

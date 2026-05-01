@@ -3,9 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-
 /**
  * @method static Builder|Item query()
  * @method static \Illuminate\Database\Eloquent\Model|Item findOrFail($id)
@@ -13,7 +13,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class Item extends Model
 {
-    protected $fillable = ['title', 'description', 'power', 'catalog_id'];
+    use HasFactory;
+    protected $fillable = ['catalog_id','user_id'];
 
     public function user(): BelongsTo
     {
