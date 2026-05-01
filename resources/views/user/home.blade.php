@@ -47,6 +47,24 @@
                 <div class="rpg-divider-gem"></div>
             </div>
 
+            <div class="rpg-nav-label">Магазин</div>
+        @foreach($products as $product)
+                <div style="border: 1px solid #ccc; margin-bottom: 10px; padding: 10px;">
+                    <strong>{{ $product->name }}</strong> — Цена: {{ $product->price }} золота
+
+                    <form action="{{ route('shop.buy', $product->id) }}" method="POST">
+                        @csrf
+                        <button type="submit" class="rpg-btn rpg-btn-ghost rpg-btn">Купить</button>
+                    </form>
+                </div>
+
+            @endforeach
+
+
+            <div class="rpg-divider">
+                <div class="rpg-divider-gem"></div>
+            </div>
+
             <nav class="rpg-nav">
 
                 {{-- Инвентарь --}}

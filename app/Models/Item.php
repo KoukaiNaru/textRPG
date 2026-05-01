@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Item extends Model
 {
     use HasFactory;
-    protected $fillable = ['title', 'description', 'power', 'catalog_id'];
+    protected $fillable = ['catalog_id','user_id'];
 
     public function user(): BelongsTo
     {

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ShopController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ItemController;
@@ -11,6 +12,9 @@ Route::get('/', [UserController::class, 'home'])->name('home');
 Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 Route::post('/username', [UserController::class, 'username'])->name('username');
 Route::get('/coins', [UserController::class, 'coins'])->name('coins');
+
+//тест покупок
+Route::post('/shop/buy/{id}',[ShopController::class,'buy'])->name('shop.buy');
 
 // Маршруты инвентаря/предметов (группировка для удобства)
 Route::prefix('inventory')->name('inventory.')->group(function () {
